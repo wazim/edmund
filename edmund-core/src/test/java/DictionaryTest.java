@@ -18,7 +18,7 @@ public class DictionaryTest {
     @Notes("[Jon] As of right now, you need to manually update the path to the dictionary...")
     public void readsTheDictionaryFileAndParsesTheFirstLine() {
         DictionaryRepository dictionaryRepository = new DictionaryRepository();
-        dictionaryRepository.readFromFile("/Users/jonathansharifi/Downloads/edmund/src/main/resources/dictionary.txt");
+        dictionaryRepository.readFromFile("/Users/jonathansharifi/Downloads/edmund/edmund-core/src/main/resources/dictionary.txt");
 
         firstWord = dictionaryRepository.retrieveWordByIndex(0);
 

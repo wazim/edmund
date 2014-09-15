@@ -27,7 +27,7 @@ public class WordSolverTest {
     @Notes("[Jon] As of right now, you need to manually update the path to the dictionary...")
     public void correctlyChoosesTheCorrectWordUsingOnlyOneLetter() {
         DictionaryRepository dictionaryRepository = new DictionaryRepository();
-        dictionaryRepository.readFromFile("/Users/jonathansharifi/Downloads/edmund/src/test/resources/test-dictionary.txt");
+        dictionaryRepository.readFromFile("/Users/jonathansharifi/Downloads/edmund/edmund-core/src/test/resources/test-dictionary.txt");
 
         WordFinder wordFinder = new WordFinder(dictionaryRepository);
         solvedWord = wordFinder.solvePuzzle(withLetter("M"), ofLength(7));
