@@ -1,14 +1,26 @@
 import com.googlecode.yatspec.junit.Notes;
 import com.googlecode.yatspec.junit.SpecRunner;
 import com.googlecode.yatspec.state.givenwhenthen.*;
+import org.apache.commons.httpclient.HttpClient;
+import org.apache.commons.httpclient.HttpMethod;
+import org.apache.commons.httpclient.methods.GetMethod;
+import org.apache.commons.httpclient.params.HttpClientParams;
+import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import static org.hamcrest.core.Is.is;
 
-
 @RunWith(SpecRunner.class)
 public class EdmundReturnsWordsTest extends TestState {
+
+    private EdmundRunner edmundRunner;
+    private int response;
+
+    @After
+    public void makeSureWeDestroyEverything() {
+        edmundRunner.stopEverything();
+    }
 
     @Test
     @Notes("[Jon] Work in progress while we configure the Spring web framework.")
@@ -32,7 +44,8 @@ public class EdmundReturnsWordsTest extends TestState {
         return new GivensBuilder() {
             @Override
             public InterestingGivens build(InterestingGivens interestingGivens) throws Exception {
-                return null;
+                edmundRunner = new EdmundRunner();
+                return interestingGivens;
             }
         };
     }
@@ -50,7 +63,15 @@ public class EdmundReturnsWordsTest extends TestState {
         return new ActionUnderTest() {
             @Override
             public CapturedInputAndOutputs execute(InterestingGivens interestingGivens, CapturedInputAndOutputs capturedInputAndOutputs) throws Exception {
-                return null;
+                HttpClientParams params = new HttpClientParams();
+                params.setParameter("character", character);
+                params.setParameter("length", lengthOfTheWord);
+                HttpClient httpClient = new HttpClient(params);
+                HttpMethod method = new GetMethod("http://http://localhost:12559");
+                response = httpClient.executeMethod(method);
+
+                System.out.println("Response from the server was "+response);
+                return capturedInputAndOutputs;
             }
         };
     }

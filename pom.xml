@@ -11,34 +11,34 @@
     <modules>
         <module>edmund-core</module>
         <module>edmund-acceptance-test</module>
+        <module>edmund-web</module>
     </modules>
 
     <properties>
         <dependency.version.yatspec>212</dependency.version.yatspec>
         <dependency.version.junit>4.11</dependency.version.junit>
+        <java.version>1.8</java.version>
     </properties>
-
 
     <dependencyManagement>
         <dependencies>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>${dependency.version.junit}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>commons-io</groupId>
-            <artifactId>commons-io</artifactId>
-            <version>2.4</version>
-        </dependency>
-        <dependency>
-            <groupId>com.googlecode.yatspec</groupId>
-            <artifactId>yatspec</artifactId>
-            <version>${dependency.version.yatspec}</version>
-        </dependency>
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>${dependency.version.junit}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>commons-io</groupId>
+                <artifactId>commons-io</artifactId>
+                <version>2.4</version>
+            </dependency>
+            <dependency>
+                <groupId>com.googlecode.yatspec</groupId>
+                <artifactId>yatspec</artifactId>
+                <version>${dependency.version.yatspec}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
-
 
 </project>
