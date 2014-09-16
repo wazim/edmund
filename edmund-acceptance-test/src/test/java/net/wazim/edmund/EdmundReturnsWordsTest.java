@@ -24,7 +24,7 @@ public class EdmundReturnsWordsTest extends EdmundTestState {
         when(theUserRequestsEdmundHealthPage());
 
         then(theStatusCode(), is(200));
-        then(theResponse(), is("Edmund Lives"));
+        then(theResponse(), matchesTheExpectedValue("Edmund Lives"));
     }
 
     @Test
@@ -34,7 +34,7 @@ public class EdmundReturnsWordsTest extends EdmundTestState {
         when(theUserAsksToSolveAPuzzle(withTheLetter("a"), andLengthOfTheWord(2)));
 
         then(theStatusCode(), is(200));
-        then(theResponse(), is("aa"));
+        then(theResponse(), matchesTheExpectedValue("aa"));
     }
 
     private StateExtractor<Integer> theStatusCode() {

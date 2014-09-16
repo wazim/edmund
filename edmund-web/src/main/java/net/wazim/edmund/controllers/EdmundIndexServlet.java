@@ -30,7 +30,10 @@ public class EdmundIndexServlet extends HttpServlet {
 
         if(lengthParameter > 0) {
             String solvedWord = wordFinder.solvePuzzle(character, lengthParameter);
-            resp.getWriter().println(solvedWord);
+            resp.getWriter().println("<head><title>Edmund</title><body>");
+            resp.getWriter().println("Your word is <strong>" + solvedWord + "</strong>");
+            resp.getWriter().println("</body>");
+
         }
         else{
             resp.getWriter().println("You must provide a valid length");
