@@ -32,7 +32,8 @@ public class EdmundIndexServlet extends HttpServlet {
         if(lengthParameter > 0) {
             List<String> listOfFoundWords = wordFinder.solvePuzzle(pattern, lengthParameter);
             resp.getWriter().println("<head><title>Edmund</title><body>");
-            resp.getWriter().println("<h1>Available Words are:</h1></br><ul>");
+            resp.getWriter().println("<h3>You are looking for a word of <font color=\"red\">" + lengthParameter + "</font> characters in length that matches the pattern of <font color=\"red\">"+ pattern +"</font></h3>");
+            resp.getWriter().println("<h3>Edmund thinks these words are what you are looking for:</h3><ul>");
             for (String matchedWord : listOfFoundWords) {
                 resp.getWriter().println("<li>" + matchedWord + "</li>");
             }
