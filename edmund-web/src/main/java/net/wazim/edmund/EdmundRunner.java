@@ -1,5 +1,6 @@
 package net.wazim.edmund;
 
+import net.wazim.edmund.controllers.EdmundHealthServlet;
 import net.wazim.edmund.controllers.EdmundIndexServlet;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletHandler;
@@ -27,7 +28,8 @@ public class EdmundRunner {
 
         server.setHandler(handler);
 
-        handler.addServletWithMapping(EdmundIndexServlet.class, "/*");
+        handler.addServletWithMapping(EdmundIndexServlet.class, "/edmund");
+        handler.addServletWithMapping(EdmundHealthServlet.class, "/edmund/health");
 
         server.start();
     }

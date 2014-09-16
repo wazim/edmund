@@ -6,7 +6,6 @@ import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpMethod;
 import org.apache.commons.httpclient.NameValuePair;
 import org.apache.commons.httpclient.methods.GetMethod;
-import org.apache.commons.httpclient.params.HttpClientParams;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -22,9 +21,10 @@ public class EdmundReturnsWordsTest extends EdmundTestState {
     public void edmundReturnsStatusCode200WhenRunningOkay() throws Exception {
         given(edmundIsRunning());
 
-        when(theUserRequestsEdmund());
+        when(theUserRequestsEdmundHealthPage());
 
         then(theStatusCode(), is(200));
+        then(theResponse(), is("Edmund Lives"));
     }
 
     @Test
@@ -33,6 +33,7 @@ public class EdmundReturnsWordsTest extends EdmundTestState {
 
         when(theUserAsksToSolveAPuzzle(withTheLetter("a"), andLengthOfTheWord(2)));
 
+        then(theStatusCode(), is(200));
         then(theResponse(), is("aa"));
     }
 
@@ -79,7 +80,7 @@ public class EdmundReturnsWordsTest extends EdmundTestState {
             @Override
             public CapturedInputAndOutputs execute(InterestingGivens interestingGivens, CapturedInputAndOutputs capturedInputAndOutputs) throws Exception {
                 HttpClient httpClient = new HttpClient();
-                HttpMethod method = new GetMethod("http://localhost:" + localPort);
+                HttpMethod method = new GetMethod("http://localhost:" + localPort + "/edmund");
                 method.setQueryString(new NameValuePair[]{
                         new NameValuePair("character", character),
                         new NameValuePair("length", String.valueOf(lengthOfTheWord))
@@ -95,14 +96,14 @@ public class EdmundReturnsWordsTest extends EdmundTestState {
         };
     }
 
-    private ActionUnderTest theUserRequestsEdmund() {
+    private ActionUnderTest theUserRequestsEdmundHealthPage() {
         return new ActionUnderTest() {
             @Override
             public CapturedInputAndOutputs execute(InterestingGivens interestingGivens, CapturedInputAndOutputs capturedInputAndOutputs) throws Exception {
-                HttpClientParams params = new HttpClientParams();
-                HttpClient httpClient = new HttpClient(params);
-                HttpMethod method = new GetMethod("http://localhost:" + localPort);
+                HttpClient httpClient = new HttpClient();
+                HttpMethod method = new GetMethod("http://localhost:" + localPort + "/edmund/health");
                 response = httpClient.executeMethod(method);
+                responseBody = method.getResponseBodyAsString();
 
                 interestingGivens.add("Http Response Code", response);
                 return capturedInputAndOutputs;
