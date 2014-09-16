@@ -10,12 +10,14 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.util.List;
+
 import static org.junit.Assert.assertThat;
 
 @RunWith(SpecRunner.class)
 public class WordSolverTest {
 
-    private String solvedWord;
+    private List<String> solvedWord;
     private InterestingGivens capturedInputAndOutputs;
 
     @Before
@@ -30,7 +32,7 @@ public class WordSolverTest {
         dictionaryRepository.readFromFile("/Users/jonathansharifi/Downloads/edmund/edmund-core/src/test/resources/test-dictionary.txt");
 
         WordFinder wordFinder = new WordFinder(dictionaryRepository);
-        solvedWord = wordFinder.solvePuzzle(withLetter("M"), ofLength(7));
+        solvedWord = wordFinder.solvePuzzle(withPattern("M......"), ofLength(7));
 
         assertThat("monster", matchesTheSolvedWord());
     }
@@ -41,7 +43,7 @@ public class WordSolverTest {
             protected boolean matchesSafely(String expectedWord) {
                 capturedInputAndOutputs.add("Word to Match", expectedWord);
                 capturedInputAndOutputs.add("Found Word", solvedWord);
-                return expectedWord.equals(solvedWord);
+                return solvedWord.contains(expectedWord);
             }
 
             @Override
@@ -55,8 +57,8 @@ public class WordSolverTest {
         return numberOfCharacters;
     }
 
-    private String withLetter(String firstCharacter) {
-        return firstCharacter;
+    private String withPattern(String pattern) {
+        return pattern;
     }
 
 

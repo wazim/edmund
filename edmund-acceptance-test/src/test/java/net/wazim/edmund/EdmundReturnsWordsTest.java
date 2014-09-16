@@ -31,10 +31,20 @@ public class EdmundReturnsWordsTest extends EdmundTestState {
     public void edmundFindsAnEasyWordAtTheTopOfTheFile() throws Exception {
         given(edmundIsRunning());
 
-        when(theUserAsksToSolveAPuzzle(withTheLetter("a"), andLengthOfTheWord(2)));
+        when(theUserAsksToSolveAPuzzle(withThePattern("a."), andLengthOfTheWord(2)));
 
         then(theStatusCode(), is(200));
         then(theResponse(), matchesTheExpectedValue("aa"));
+    }
+
+    @Test
+    public void edmundFindsAnADifficultWordInTheMiddleOfTheFile() throws Exception {
+        given(edmundIsRunning());
+
+        when(theUserAsksToSolveAPuzzle(withThePattern("...s..."), andLengthOfTheWord(7)));
+
+        then(theStatusCode(), is(200));
+        then(theResponse(), matchesTheExpectedValue("monster"));
     }
 
     private StateExtractor<Integer> theStatusCode() {
@@ -62,8 +72,8 @@ public class EdmundReturnsWordsTest extends EdmundTestState {
         return lengthOfWord;
     }
 
-    private String withTheLetter(String theLetter) {
-        return theLetter;
+    private String withThePattern(String thePattern) {
+        return thePattern;
     }
 
     private StateExtractor<String> theResponse() {
@@ -75,22 +85,23 @@ public class EdmundReturnsWordsTest extends EdmundTestState {
         };
     }
 
-    private ActionUnderTest theUserAsksToSolveAPuzzle(final String character, final int lengthOfTheWord) {
+    private ActionUnderTest theUserAsksToSolveAPuzzle(final String pattern, final int lengthOfTheWord) {
         return new ActionUnderTest() {
             @Override
             public CapturedInputAndOutputs execute(InterestingGivens interestingGivens, CapturedInputAndOutputs capturedInputAndOutputs) throws Exception {
                 HttpClient httpClient = new HttpClient();
                 HttpMethod method = new GetMethod("http://localhost:" + localPort + "/edmund");
                 method.setQueryString(new NameValuePair[]{
-                        new NameValuePair("character", character),
+                        new NameValuePair("pattern", pattern),
                         new NameValuePair("length", String.valueOf(lengthOfTheWord))
                 });
                 response = httpClient.executeMethod(method);
                 responseBody = method.getResponseBodyAsString();
 
-                interestingGivens.add("Query Character Parameter", character);
+                interestingGivens.add("Query Pattern Parameter", pattern);
                 interestingGivens.add("Query Length Parameter", lengthOfTheWord);
                 interestingGivens.add("Http Response Code", response);
+                interestingGivens.add("Http Response Body", responseBody);
                 return capturedInputAndOutputs;
             }
         };

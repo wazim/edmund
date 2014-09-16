@@ -1,5 +1,8 @@
 package net.wazim.edmund;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class WordFinder {
 
     private DictionaryRepository dictionaryRepository;
@@ -8,13 +11,14 @@ public class WordFinder {
         this.dictionaryRepository = dictionaryRepository;
     }
 
-    public String solvePuzzle(String firstCharacter, int lengthOfWord) {
+    public List<String> solvePuzzle(String firstCharacter, int lengthOfWord) {
+        ArrayList<String> listOfMatchedWords = new ArrayList<String>();
         for (String word : dictionaryRepository.dictionary()) {
-            if(word.toLowerCase().startsWith(firstCharacter.toLowerCase()) &&  word.length() == lengthOfWord) {
-                return word;
+            if(word.toLowerCase().matches(firstCharacter.toLowerCase()) &&  word.length() == lengthOfWord) {
+                 listOfMatchedWords.add(word);
             }
         }
-        return null;
+        return listOfMatchedWords;
     }
 
 }
