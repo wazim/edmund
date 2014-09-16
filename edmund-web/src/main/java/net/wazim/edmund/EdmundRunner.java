@@ -9,7 +9,7 @@ public class EdmundRunner {
     private Server server = null;
 
     public EdmundRunner(int localPort) {
-        System.setProperty("org.eclipse.jetty.LEVEL", "DEBUG");
+        // System.setProperty("org.eclipse.jetty.LEVEL", "DEBUG"); // [Jon] Uncomment this if you want a higher level of logging by Jetty
         server = new Server(localPort);
         System.out.println("Starting Edmund on " + localPort);
     }

@@ -4,6 +4,7 @@ import com.googlecode.yatspec.junit.SpecRunner;
 import com.googlecode.yatspec.state.givenwhenthen.*;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpMethod;
+import org.apache.commons.httpclient.NameValuePair;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.httpclient.params.HttpClientParams;
 import org.junit.Test;
@@ -15,6 +16,7 @@ import static org.hamcrest.core.Is.is;
 public class EdmundReturnsWordsTest extends EdmundTestState {
 
     private int response;
+    private String responseBody;
 
     @Test
     public void edmundReturnsStatusCode200WhenRunningOkay() throws Exception {
@@ -26,7 +28,7 @@ public class EdmundReturnsWordsTest extends EdmundTestState {
     }
 
     @Test
-    public void edmundFindsAWord() throws Exception {
+    public void edmundFindsAnEasyWordAtTheTopOfTheFile() throws Exception {
         given(edmundIsRunning());
 
         when(theUserAsksToSolveAPuzzle(withTheLetter("a"), andLengthOfTheWord(2)));
@@ -67,7 +69,7 @@ public class EdmundReturnsWordsTest extends EdmundTestState {
         return new StateExtractor<String>() {
             @Override
             public String execute(CapturedInputAndOutputs capturedInputAndOutputs) throws Exception {
-                return "aa";
+                return responseBody.trim();
             }
         };
     }
@@ -76,12 +78,14 @@ public class EdmundReturnsWordsTest extends EdmundTestState {
         return new ActionUnderTest() {
             @Override
             public CapturedInputAndOutputs execute(InterestingGivens interestingGivens, CapturedInputAndOutputs capturedInputAndOutputs) throws Exception {
-                HttpClientParams params = new HttpClientParams();
-                params.setParameter("character", character);
-                params.setParameter("length", lengthOfTheWord);
-                HttpClient httpClient = new HttpClient(params);
+                HttpClient httpClient = new HttpClient();
                 HttpMethod method = new GetMethod("http://localhost:" + localPort);
+                method.setQueryString(new NameValuePair[]{
+                        new NameValuePair("character", character),
+                        new NameValuePair("length", String.valueOf(lengthOfTheWord))
+                });
                 response = httpClient.executeMethod(method);
+                responseBody = method.getResponseBodyAsString();
 
                 interestingGivens.add("Query Character Parameter", character);
                 interestingGivens.add("Query Length Parameter", lengthOfTheWord);
