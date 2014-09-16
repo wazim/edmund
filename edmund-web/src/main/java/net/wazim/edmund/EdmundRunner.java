@@ -35,6 +35,7 @@ public class EdmundRunner {
     }
 
     public static void main(String[] args) throws Exception {
+        System.setProperty("org.eclipse.jetty.LEVEL", "DEBUG");
         new EdmundRunner(15296).start();
     }
 
