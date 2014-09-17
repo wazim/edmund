@@ -28,7 +28,7 @@ public class EdmundIndexServlet extends HttpServlet {
         } catch(Exception e){
             lengthParameter = 0;
         }
-
+        long startTime = System.currentTimeMillis();
         if(lengthParameter > 0) {
             List<String> listOfFoundWords = wordFinder.solvePuzzle(pattern, lengthParameter);
             resp.getWriter().println("<head><title>Edmund</title><body>");
@@ -37,7 +37,10 @@ public class EdmundIndexServlet extends HttpServlet {
             for (String matchedWord : listOfFoundWords) {
                 resp.getWriter().println("<li>" + matchedWord + "</li>");
             }
-            resp.getWriter().println("</ul></body>");
+            long endTime = System.currentTimeMillis();
+            long duration = (endTime - startTime);
+            resp.getWriter().println("</ul></br>This request took Edmund " + duration + " ms to complete");
+            resp.getWriter().println("</body>");
 
         }
         else{
