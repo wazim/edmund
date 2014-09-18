@@ -2,6 +2,7 @@ package net.wazim.edmund;
 
 import net.wazim.edmund.controllers.EdmundHealthServlet;
 import net.wazim.edmund.controllers.EdmundIndexServlet;
+import net.wazim.edmund.controllers.EdmundRetrieverServlet;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletHandler;
 
@@ -10,7 +11,6 @@ public class EdmundRunner {
     private Server server = null;
 
     public EdmundRunner(int localPort) {
-        // System.setProperty("org.eclipse.jetty.LEVEL", "DEBUG"); // [Jon] Uncomment this if you want a higher level of logging by Jetty
         server = new Server(localPort);
         System.out.println("Starting Edmund on " + localPort);
     }
@@ -29,6 +29,7 @@ public class EdmundRunner {
         server.setHandler(handler);
 
         handler.addServletWithMapping(EdmundIndexServlet.class, "/edmund");
+        handler.addServletWithMapping(EdmundRetrieverServlet.class, "/edmund/search");
         handler.addServletWithMapping(EdmundHealthServlet.class, "/edmund/health");
 
         server.start();
