@@ -53,6 +53,7 @@ public class EdmundReturnsWordsTest extends EdmundTestState {
                 interestingGivens.add("Query Length Parameter", lengthOfTheWord);
                 interestingGivens.add("Http Response Code", response.code());
                 interestingGivens.add("Http Response Body", response.body());
+                capturedInputAndOutputs.add("Response Page", response.body());
                 return capturedInputAndOutputs;
             }
         };

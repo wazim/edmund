@@ -33,7 +33,7 @@ public class EdmundTestState extends TestState {
         return new GivensBuilder() {
             @Override
             public InterestingGivens build(InterestingGivens interestingGivens) throws Exception {
-                while(!edmundRunner.isRunning()){
+                while (!edmundRunner.isRunning()) {
                     Thread.sleep(100);
                 }
                 return interestingGivens;
@@ -68,7 +68,7 @@ public class EdmundTestState extends TestState {
 
             @Override
             public void describeTo(Description description) {
-                description.appendText("Does not contain the expected value of: "+expectedValue);
+                description.appendText("Does not contain the expected value of: " + expectedValue);
             }
         };
     }

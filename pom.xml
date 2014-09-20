@@ -17,6 +17,7 @@
     <properties>
         <dependency.version.yatspec>212</dependency.version.yatspec>
         <dependency.version.junit>4.11</dependency.version.junit>
+        <dependency.version.json>20140107</dependency.version.json>
         <java.version>1.8</java.version>
     </properties>
 
@@ -37,6 +38,11 @@
                 <groupId>com.googlecode.yatspec</groupId>
                 <artifactId>yatspec</artifactId>
                 <version>${dependency.version.yatspec}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.json</groupId>
+                <artifactId>json</artifactId>
+                <version>${dependency.version.json}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
