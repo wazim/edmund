@@ -1,5 +1,6 @@
 package net.wazim.edmund;
 
+import net.wazim.edmund.controllers.EdmundApiServlet;
 import net.wazim.edmund.controllers.EdmundHealthServlet;
 import net.wazim.edmund.controllers.EdmundIndexServlet;
 import net.wazim.edmund.controllers.EdmundRetrieverServlet;
@@ -29,6 +30,7 @@ public class EdmundRunner {
         server.setHandler(handler);
 
         handler.addServletWithMapping(EdmundIndexServlet.class, "/edmund");
+        handler.addServletWithMapping(EdmundApiServlet.class, "/edmund/api");
         handler.addServletWithMapping(EdmundRetrieverServlet.class, "/edmund/search");
         handler.addServletWithMapping(EdmundHealthServlet.class, "/edmund/health");
 
