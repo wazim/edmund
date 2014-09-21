@@ -17,7 +17,7 @@ public class EdmundReturnsWordsTest extends EdmundTestState {
     public void edmundFindsAnEasyWordAtTheTopOfTheFile() throws Exception {
         given(edmundIsRunning());
 
-        when(theUserAsksToSolveAPuzzle(withThePattern("a."), andLengthOfTheWord(2)));
+        when(theUserAsksToSolveAPuzzle(withThePattern("a.")));
 
         then(theStatusCode(), is(200));
         then(theResponse(), matchesTheExpectedValue("aa"));
@@ -27,30 +27,24 @@ public class EdmundReturnsWordsTest extends EdmundTestState {
     public void edmundFindsAnADifficultWordInTheMiddleOfTheFile() throws Exception {
         given(edmundIsRunning());
 
-        when(theUserAsksToSolveAPuzzle(withThePattern("...s..."), andLengthOfTheWord(7)));
+        when(theUserAsksToSolveAPuzzle(withThePattern("...s...")));
 
         then(theStatusCode(), is(200));
         then(theResponse(), matchesTheExpectedValue("monster"));
-    }
-
-    private int andLengthOfTheWord(int lengthOfWord) {
-        return lengthOfWord;
     }
 
     private String withThePattern(String thePattern) {
         return thePattern;
     }
 
-    private ActionUnderTest theUserAsksToSolveAPuzzle(final String pattern, final int lengthOfTheWord) {
+    private ActionUnderTest theUserAsksToSolveAPuzzle(final String pattern) {
         return new ActionUnderTest() {
             @Override
             public CapturedInputAndOutputs execute(InterestingGivens interestingGivens, CapturedInputAndOutputs capturedInputAndOutputs) throws Exception {
                 EdmundHttpClient client = new EdmundHttpClient();
                 client.addQueryParameter("pattern", pattern);
-                client.addQueryParameter("length", String.valueOf(lengthOfTheWord));
                 response = client.getRequest("http://localhost:" + localPort + "/edmund/search");
                 interestingGivens.add("Query Pattern Parameter", pattern);
-                interestingGivens.add("Query Length Parameter", lengthOfTheWord);
                 interestingGivens.add("Http Response Code", response.code());
                 interestingGivens.add("Http Response Body", response.body());
                 capturedInputAndOutputs.add("Response Page", response.body());

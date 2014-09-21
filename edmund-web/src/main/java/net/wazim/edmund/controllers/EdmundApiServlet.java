@@ -23,15 +23,10 @@ public class EdmundApiServlet extends HttpServlet {
         WordFinder wordFinder = new WordFinder(dictionaryRepository);
 
         String pattern = req.getParameter("pattern");
-        int lengthParameter;
-        try {
-            lengthParameter = Integer.parseInt(req.getParameter("length"));
-        } catch (Exception e) {
-            lengthParameter = 0;
-        }
 
-        if (lengthParameter > 0) {
-            List<String> listOfFoundWords = wordFinder.solvePuzzle(pattern, lengthParameter);
+
+        if (pattern.length() > 0) {
+            List<String> listOfFoundWords = wordFinder.solvePuzzle(pattern);
             JSONObject object = new JSONObject().put("words", listOfFoundWords);
             resp.getWriter().println(object);
         } else {

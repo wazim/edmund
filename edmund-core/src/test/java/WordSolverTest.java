@@ -32,7 +32,7 @@ public class WordSolverTest {
         dictionaryRepository.readFromFile("/Users/jonathansharifi/Downloads/edmund/edmund-core/src/test/resources/test-dictionary.txt");
 
         WordFinder wordFinder = new WordFinder(dictionaryRepository);
-        solvedWord = wordFinder.solvePuzzle(withPattern("M......"), ofLength(7));
+        solvedWord = wordFinder.solvePuzzle(withPattern("M......"));
 
         assertThat("monster", matchesTheSolvedWord());
     }

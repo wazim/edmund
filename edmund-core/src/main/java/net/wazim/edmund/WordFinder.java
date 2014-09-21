@@ -11,10 +11,10 @@ public class WordFinder {
         this.dictionaryRepository = dictionaryRepository;
     }
 
-    public List<String> solvePuzzle(String firstCharacter, int lengthOfWord) {
+    public List<String> solvePuzzle(String pattern) {
         ArrayList<String> listOfMatchedWords = new ArrayList<String>();
         for (String word : dictionaryRepository.dictionary()) {
-            if(word.toLowerCase().matches(firstCharacter.toLowerCase()) &&  word.length() == lengthOfWord) {
+            if(word.toLowerCase().matches(pattern.toLowerCase()) &&  word.length() == pattern.length()) {
                  listOfMatchedWords.add(word);
             }
         }

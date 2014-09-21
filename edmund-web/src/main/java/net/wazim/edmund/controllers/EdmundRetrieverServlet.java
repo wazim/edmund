@@ -22,17 +22,12 @@ public class EdmundRetrieverServlet extends HttpServlet {
         WordFinder wordFinder = new WordFinder(dictionaryRepository);
 
         String pattern = req.getParameter("pattern");
-        int lengthParameter;
-        try {
-            lengthParameter = Integer.parseInt(req.getParameter("length"));
-        } catch(Exception e){
-            lengthParameter = 0;
-        }
         long startTime = System.currentTimeMillis();
-        if(lengthParameter > 0) {
-            List<String> listOfFoundWords = wordFinder.solvePuzzle(pattern, lengthParameter);
+
+        if(pattern.length() > 0) {
+            List<String> listOfFoundWords = wordFinder.solvePuzzle(pattern);
             resp.getWriter().println("<head><title>Edmund</title><body>");
-            resp.getWriter().println("<h3>You are looking for a word of <font color=\"red\">" + lengthParameter + "</font> characters in length that matches the pattern of <font color=\"red\">"+ pattern +"</font></h3>");
+            resp.getWriter().println("<h3>You are looking for a word of <font color=\"red\">" + pattern.length() + "</font> characters in length that matches the pattern of <font color=\"red\">"+ pattern +"</font></h3>");
             resp.getWriter().println("<h3>Edmund thinks these words are what you are looking for:</h3><ul>");
             for (String matchedWord : listOfFoundWords) {
                 resp.getWriter().println("<li>" + matchedWord + "</li>");
@@ -41,7 +36,6 @@ public class EdmundRetrieverServlet extends HttpServlet {
             long duration = (endTime - startTime);
             resp.getWriter().println("</ul></br>This request took Edmund " + duration + " ms to complete");
             resp.getWriter().println("</body>");
-
         }
         else{
             resp.getWriter().println("You must provide a valid length");
