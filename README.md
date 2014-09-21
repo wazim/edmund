@@ -7,12 +7,12 @@ cryptic crossword solver
 
 JSON
 ```
-http://localhost:15296/edmund/api?pattern=pattern&length=5&format=json
+http://localhost:15296/edmund/api?pattern=pattern&format=json
 ```
 
 XML
 ```
-http://localhost:15296/edmund/api?pattern=pattern&length=5&format=xml
+http://localhost:15296/edmund/api?pattern=pattern&format=xml
 ```
 
 Parameter | Type | Description
