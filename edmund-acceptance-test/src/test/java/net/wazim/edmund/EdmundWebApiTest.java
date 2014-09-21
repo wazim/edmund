@@ -20,7 +20,7 @@ public class EdmundWebApiTest extends EdmundTestState {
         when(theUserRequestsTheApi(withThePattern("a."), withFormat("json")));
 
         then(theStatusCode(), is(200));
-        then(theResponse(), matchesTheExpectedValue("aa"));
+        then(theResponse(), matchesTheExpectedValue("\"aa\""));
     }
 
     @Test
@@ -30,7 +30,7 @@ public class EdmundWebApiTest extends EdmundTestState {
         when(theUserRequestsTheApi(withThePattern("a."), withFormat("xml")));
 
         then(theStatusCode(), is(200));
-        then(theResponse(), matchesTheExpectedValue("aa"));
+        then(theResponse(), matchesTheExpectedValue("<word>aa</word>"));
     }
 
     private String withFormat(String format) {
