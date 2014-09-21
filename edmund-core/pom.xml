@@ -28,6 +28,14 @@
             <artifactId>yatspec</artifactId>
             <version>${dependency.version.yatspec}</version>
         </dependency>
+        <dependency>
+            <groupId>dom4j</groupId>
+            <artifactId>dom4j</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+        </dependency>
     </dependencies>
 
 
