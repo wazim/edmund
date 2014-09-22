@@ -30,9 +30,11 @@ public class EdmundApiServlet extends HttpServlet {
         if (pattern.length() > 0) {
             List<String> listOfFoundWords = wordFinder.solvePuzzle(pattern);
             if(format.toLowerCase().equals("json")) {
+                resp.setContentType("application/json");
                 resp.getWriter().println(createJson(listOfFoundWords));
             }
             else {
+                resp.setContentType("application/xml");
                 resp.getWriter().println(createXml(listOfFoundWords));
             }
         } else {
