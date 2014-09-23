@@ -55,9 +55,9 @@
 
     <repositories>
         <repository>
-            <id>oss-sonatype</id>
-            <name>oss-sonatype</name>
-            <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+            <id>repo-bodar</id>
+            <name>repo-bodar</name>
+            <url>http://repo.bodar.com/</url>
             <snapshots>
                 <enabled>true</enabled>
             </snapshots>
