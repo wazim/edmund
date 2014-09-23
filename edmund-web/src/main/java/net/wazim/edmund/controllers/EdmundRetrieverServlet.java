@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.net.URL;
 import java.util.List;
 
 public class EdmundRetrieverServlet extends HttpServlet {
@@ -17,17 +18,20 @@ public class EdmundRetrieverServlet extends HttpServlet {
         resp.setContentType("text/html");
         resp.setStatus(HttpServletResponse.SC_OK);
         DictionaryRepository dictionaryRepository = new DictionaryRepository();
-        dictionaryRepository.readFromFile("/Users/jonathansharifi/Downloads/edmund/edmund-core/src/main/resources/dictionary.txt");
+
+        URL url = ClassLoader.getSystemResource("dictionary.txt");
+        String file = url.getPath();
+        dictionaryRepository.readFromFile(file);
 
         WordFinder wordFinder = new WordFinder(dictionaryRepository);
 
         String pattern = req.getParameter("pattern");
         long startTime = System.currentTimeMillis();
 
-        if(pattern.length() > 0) {
+        if (pattern.length() > 0) {
             List<String> listOfFoundWords = wordFinder.solvePuzzle(pattern);
             resp.getWriter().println("<head><title>Edmund</title><body>");
-            resp.getWriter().println("<h3>You are looking for a word of <font color=\"red\">" + pattern.length() + "</font> characters in length that matches the pattern of <font color=\"red\">"+ pattern +"</font></h3>");
+            resp.getWriter().println("<h3>You are looking for a word of <font color=\"red\">" + pattern.length() + "</font> characters in length that matches the pattern of <font color=\"red\">" + pattern + "</font></h3>");
             resp.getWriter().println("<h3>Edmund thinks these words are what you are looking for:</h3><ul>");
             for (String matchedWord : listOfFoundWords) {
                 resp.getWriter().println("<li>" + matchedWord + "</li>");
@@ -36,8 +40,7 @@ public class EdmundRetrieverServlet extends HttpServlet {
             long duration = (endTime - startTime);
             resp.getWriter().println("</ul></br>This request took Edmund " + duration + " ms to complete");
             resp.getWriter().println("</body>");
-        }
-        else{
+        } else {
             resp.getWriter().println("You must provide a valid length");
         }
     }

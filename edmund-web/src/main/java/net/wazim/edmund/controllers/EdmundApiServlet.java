@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.net.URL;
 import java.util.List;
 
 import static net.wazim.edmund.utils.DocumentBuilder.createJson;
@@ -20,7 +21,10 @@ public class EdmundApiServlet extends HttpServlet {
         resp.setContentType("text/html");
         resp.setStatus(HttpServletResponse.SC_OK);
         DictionaryRepository dictionaryRepository = new DictionaryRepository();
-        dictionaryRepository.readFromFile("/Users/jonathansharifi/Downloads/edmund/edmund-core/src/main/resources/dictionary.txt");
+
+        URL url = ClassLoader.getSystemResource("dictionary.txt");
+        String file = url.getPath();
+        dictionaryRepository.readFromFile(file);
 
         WordFinder wordFinder = new WordFinder(dictionaryRepository);
 
@@ -29,11 +33,10 @@ public class EdmundApiServlet extends HttpServlet {
 
         if (pattern.length() > 0) {
             List<String> listOfFoundWords = wordFinder.solvePuzzle(pattern);
-            if(format.toLowerCase().equals("json")) {
+            if (format.toLowerCase().equals("json")) {
                 resp.setContentType("application/json");
                 resp.getWriter().println(createJson(listOfFoundWords));
-            }
-            else {
+            } else {
                 resp.setContentType("application/xml");
                 resp.getWriter().println(createXml(listOfFoundWords));
             }

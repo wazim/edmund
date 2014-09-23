@@ -1,4 +1,3 @@
-import com.googlecode.yatspec.junit.Notes;
 import com.googlecode.yatspec.junit.SpecRunner;
 import com.googlecode.yatspec.state.givenwhenthen.InterestingGivens;
 import net.wazim.edmund.DictionaryRepository;
@@ -10,6 +9,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.net.URL;
 import java.util.List;
 
 import static org.junit.Assert.assertThat;
@@ -26,10 +26,12 @@ public class WordSolverTest {
     }
 
     @Test
-    @Notes("[Jon] As of right now, you need to manually update the path to the dictionary...")
     public void correctlyChoosesTheCorrectWordUsingOnlyOneLetter() {
         DictionaryRepository dictionaryRepository = new DictionaryRepository();
-        dictionaryRepository.readFromFile("/Users/jonathansharifi/Downloads/edmund/edmund-core/src/test/resources/test-dictionary.txt");
+
+        URL url = ClassLoader.getSystemResource("dictionary.txt");
+        String file = url.getPath();
+        dictionaryRepository.readFromFile(file);
 
         WordFinder wordFinder = new WordFinder(dictionaryRepository);
         solvedWord = wordFinder.solvePuzzle(withPattern("M......"));
