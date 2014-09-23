@@ -1,6 +1,8 @@
 edmund
 ======
 
+<img src="https://travis-ci.org/wazim/edmund.svg?branch=master">
+
 cryptic crossword solver
 
 ### API
