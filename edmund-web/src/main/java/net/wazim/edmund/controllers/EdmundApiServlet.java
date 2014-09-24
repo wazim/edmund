@@ -2,13 +2,15 @@ package net.wazim.edmund.controllers;
 
 import net.wazim.edmund.DictionaryRepository;
 import net.wazim.edmund.WordFinder;
+import org.apache.commons.io.IOUtils;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.net.URL;
+import java.io.InputStream;
+import java.nio.charset.Charset;
 import java.util.List;
 
 import static net.wazim.edmund.utils.DocumentBuilder.createJson;
@@ -22,9 +24,9 @@ public class EdmundApiServlet extends HttpServlet {
         resp.setStatus(HttpServletResponse.SC_OK);
         DictionaryRepository dictionaryRepository = new DictionaryRepository();
 
-        URL url = ClassLoader.getSystemResource("dictionary.txt");
-        String file = url.getPath();
-        dictionaryRepository.readFromFile(file);
+        InputStream url = ClassLoader.getSystemResourceAsStream("dictionary.txt");
+        List<String> listOfWords = IOUtils.readLines(url, Charset.defaultCharset());
+        dictionaryRepository.setListOfWords(listOfWords);
 
         WordFinder wordFinder = new WordFinder(dictionaryRepository);
 

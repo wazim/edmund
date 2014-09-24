@@ -11,6 +11,10 @@ public class DictionaryRepository {
 
     private List<String> listOfWords = new ArrayList<String>();
 
+    public void setListOfWords(List<String> newListOfWords) {
+        listOfWords = newListOfWords;
+    }
+
     public void readFromFile(String fileSource) {
         File file = new File(fileSource);
         try {
