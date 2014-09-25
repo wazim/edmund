@@ -1,1 +1,1 @@
-web:    java $JAVA_OPTS -cp target/classes:target/dependency/* EdmundRunner
+web:    java $JAVA_OPTS -jar edmund-web/target/edmund-web-1.0-SNAPSHOT.jar
