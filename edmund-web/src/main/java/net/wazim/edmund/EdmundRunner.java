@@ -29,7 +29,7 @@ public class EdmundRunner {
 
         server.setHandler(handler);
 
-        handler.addServletWithMapping(EdmundIndexServlet.class, "/edmund");
+        handler.addServletWithMapping(EdmundIndexServlet.class, "/");
         handler.addServletWithMapping(EdmundApiServlet.class, "/edmund/api");
         handler.addServletWithMapping(EdmundRetrieverServlet.class, "/edmund/search");
         handler.addServletWithMapping(EdmundHealthServlet.class, "/edmund/health");
