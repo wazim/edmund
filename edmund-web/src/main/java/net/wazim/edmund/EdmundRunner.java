@@ -39,7 +39,7 @@ public class EdmundRunner {
 
     public static void main(String[] args) throws Exception {
         System.setProperty("org.eclipse.jetty.LEVEL", "DEBUG");
-        new EdmundRunner(15296).start();
+        new EdmundRunner(5000).start();
     }
 
     public boolean isRunning() {
