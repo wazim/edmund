@@ -4,6 +4,6 @@ deploy:
   api-key: "d2479312925a7313a3db4b0168f5cd0b8438ea98"
   file: "edmund-web-1.0-SNAPSHOT.jar"
   skip_cleanup: true
-  on:
-    tags: false
+  on
+    tags: true
     all_branches: true
