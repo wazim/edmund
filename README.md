@@ -5,7 +5,7 @@ edmund
 <img src="https://travis-ci.org/wazim/edmund.svg?branch=master">
 </a>
 
-cryptic crossword solver
+crossword solver
 
 ### API
 
